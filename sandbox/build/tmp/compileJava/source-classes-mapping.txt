@@ -1,6 +1,10 @@
+ru/stqa/pft/sandbox/Square.java
+ ru.stqa.pft.sandbox.Square
+ru/stqa/pft/distance/Point.java
+ ru.stqa.pft.distance.Point
 ru/stqa/pft/sandbox/MyFirstProgram.java
  ru.stqa.pft.sandbox.MyFirstProgram
 ru/stqa/pft/sandbox/Rectangle.java
  ru.stqa.pft.sandbox.Rectangle
-ru/stqa/pft/sandbox/Square.java
- ru.stqa.pft.sandbox.Square
+ru/stqa/pft/distance/Distance.java
+ ru.stqa.pft.distance.Distance
