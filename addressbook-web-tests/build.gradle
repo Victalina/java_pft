@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
  repositories {
 
@@ -7,4 +8,5 @@ apply plugin: 'java'
 dependencies {
 
     implementation 'org.testng:testng:7.1.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-6'
 }
