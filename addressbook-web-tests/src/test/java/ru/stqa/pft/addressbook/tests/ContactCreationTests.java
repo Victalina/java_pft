@@ -10,6 +10,6 @@ public class ContactCreationTests extends TestBase {
     app.initContactCreation();
     app.fillContactForm(new ContactData("Test1", "Test2", "123456, test test", "+7(111)111-11-11", "test@test.com"));
     app.submitContactCreation();
-    app.gotoHomePage();
+    app.getNavigationHelper().gotoHomePage();
   }
 }

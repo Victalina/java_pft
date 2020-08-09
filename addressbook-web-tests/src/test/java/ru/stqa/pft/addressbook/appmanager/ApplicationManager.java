@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
   public WebDriver wd;
+  public NavigationHelper navigationHelper;
   public GroupHelper groupHelper;
 
   public void init() {
@@ -18,6 +19,7 @@ public class ApplicationManager {
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
+    navigationHelper = new NavigationHelper(wd);
     login("admin", "secret");
   }
 
@@ -28,10 +30,6 @@ public class ApplicationManager {
     wd.findElement(By.name("pass")).clear();
     wd.findElement(By.name("pass")).sendKeys(password);
     wd.findElement(By.xpath("//input[@value='Login']")).click();
-  }
-
-  public void gotoGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
   }
 
   public void stop() {
@@ -79,10 +77,6 @@ public class ApplicationManager {
     wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
   }
 
-  public void gotoHomePage() {
-    wd.findElement(By.linkText("home page")).click();
-  }
-
   public void submitContactCreation() {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
@@ -93,5 +87,9 @@ public class ApplicationManager {
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
+  }
+
+  public NavigationHelper getNavigationHelper() {
+    return navigationHelper;
   }
 }
