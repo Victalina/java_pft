@@ -8,5 +8,5 @@ apply plugin: 'application'
 dependencies {
 
     implementation 'org.testng:testng:7.1.0'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-6'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
 }
