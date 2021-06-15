@@ -81,7 +81,7 @@ public class ContactHelper extends HelperBase {
     // List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']/td[2]"));
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
-      String id = element.findElement(By.xpath(".//td[1]/input")).getAttribute("value");
+      int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       String lastName = element.findElement(By.xpath(".//td[2]")).getText();
       String address = element.findElement(By.xpath(".//td[4]")).getText();

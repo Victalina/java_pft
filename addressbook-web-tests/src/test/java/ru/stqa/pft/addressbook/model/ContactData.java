@@ -1,9 +1,11 @@
 package ru.stqa.pft.addressbook.model;
 
+import org.testng.annotations.BeforeMethod;
+
 import java.util.Objects;
 
 public class ContactData {
-  private String id;
+  private int id;
   private final String firstName;
   private final String lastName;
   private final String address;
@@ -12,7 +14,7 @@ public class ContactData {
   private final String group;
 
 
-  public ContactData(String id, String firstName, String lastName, String address, String phoneMobile, String email, String group) {
+  public ContactData(int id, String firstName, String lastName, String address, String phoneMobile, String email, String group) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -23,7 +25,7 @@ public class ContactData {
   }
 
   public ContactData(String firstName, String lastName, String address, String phoneMobile, String email, String group) {
-    this.id = null;
+    this.id = 0;
     this.firstName = firstName;
     this.lastName = lastName;
     this.address = address;
@@ -32,8 +34,12 @@ public class ContactData {
     this.group = group;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getFirstName() {
@@ -64,7 +70,7 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "id='" + id + '\'' +
+            "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", address='" + address + '\'' +
@@ -78,7 +84,7 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(phoneMobile, that.phoneMobile) && Objects.equals(email, that.email);
+    return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(phoneMobile, that.phoneMobile) && Objects.equals(email, that.email);
   }
 
   @Override
