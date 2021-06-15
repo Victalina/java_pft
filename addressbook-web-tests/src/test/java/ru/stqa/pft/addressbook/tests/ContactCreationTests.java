@@ -5,13 +5,13 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase{
 
   @Test
   public void testContactCreation() {
+    app.getNavigationHelper().gotoHomePage();
    // int before = app.getContactHelper().getContactCount();
     List<ContactData> before = app.getContactHelper().getContactList();
     ContactData contact = new ContactData("Test17", "Test2", "123456, test test", "+71111111111", "test@test.com", "test1");
@@ -27,8 +27,8 @@ public class ContactCreationTests extends TestBase{
       if (c.getId() > max){
         max = c.getId();
       }
-    }*/
-    /* Способ 2. Поиск макс. Id
+    }
+    Способ 2. Поиск макс. Id
     contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     */
@@ -37,6 +37,5 @@ public class ContactCreationTests extends TestBase{
     before.sort(byId);
     after.sort(byId);
     Assert.assertEquals(before, after);
-
   }
 }
