@@ -11,27 +11,13 @@ public class ContactCreationTests extends TestBase{
 
   @Test
   public void testContactCreation() {
-    app.getNavigationHelper().gotoHomePage();
-   // int before = app.getContactHelper().getContactCount();
-    List<ContactData> before = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("Test17", "Test2", "123456, test test", "+71111111111", "test@test.com", "test1");
-    app.getContactHelper().createContact(contact,true);
-    app.getNavigationHelper().gotoHomePage();
-    // int after = app.getContactHelper().getContactCount();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().create(contact,true);
+    app.goTo().homePageForCreationContact();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
-
-   /* Способ 1. Поиск макс. Id
-    int max = 0;
-    for (ContactData c : after){
-      if (c.getId() > max){
-        max = c.getId();
-      }
-    }
-    Способ 2. Поиск макс. Id
-    contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-    */
     before.add(contact);
     Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(byId);
