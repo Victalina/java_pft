@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -44,6 +46,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(i).click();
   }
 
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[value ='" + id +"']")).click();
+  }
+
   public void deleteSelectedContact() {
     click(By.xpath("(//input[@value='Delete'])"));
     acceptAlert();
@@ -51,6 +57,9 @@ public class ContactHelper extends HelperBase {
 
   public void initContactModification(int i) {
     wd.findElements(By.xpath("(//img[@alt='Edit'])")).get(i).click();
+  }
+  public void initContactModificationById(int id) {
+   wd.findElement(By.cssSelector("input[value = '" + id + "']")).findElement(By.xpath(".//../../td[8]/a/img[@alt='Edit']")).click();
   }
 
   public void submitContactModification() {
@@ -61,9 +70,9 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//a[text()='home page'])"));
   }
 
-  public void create(ContactData contact, boolean creation1) {
+  public void create(ContactData contact, boolean creation) {
     initContactCreation();
-    fillContactForm(contact, creation1);
+    fillContactForm(contact, creation);
     submitContactCreation();
   }
 
@@ -73,8 +82,19 @@ public class ContactHelper extends HelperBase {
     submitContactModification();
     returnToHomePage();
   }
+  public void modify(ContactData contact) {
+    initContactModificationById(contact.getId());
+    fillContactForm(contact, false);
+    submitContactModification();
+    returnToHomePage();
+  }
+
   public void delete(int index) {
     selectContact(index);
+    deleteSelectedContact();
+  }
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
     deleteSelectedContact();
   }
 
@@ -88,6 +108,21 @@ public class ContactHelper extends HelperBase {
 
   public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
+      String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+      String lastName = element.findElement(By.xpath(".//td[2]")).getText();
+      String address = element.findElement(By.xpath(".//td[4]")).getText();
+      String phoneMobile = element.findElement(By.xpath(".//td[6]")).getText();;
+      String email = element.findElement(By.xpath(".//td[5]")).getText();
+      contacts.add(new ContactData()
+              .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address).withPhoneMobile(phoneMobile).withEmail(email));
+    }
+    return contacts;
+  }
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
