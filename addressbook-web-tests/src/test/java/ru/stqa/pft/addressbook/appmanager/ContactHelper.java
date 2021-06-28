@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,18 +71,21 @@ public class ContactHelper extends HelperBase {
     initContactCreation();
     fillContactForm(contact, creation);
     submitContactCreation();
+    contactCache = null;
   }
 
   public void modify(ContactData contact) {
     initContactModificationById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
+    contactCache = null;
     returnToHomePage();
   }
 
   public void delete(ContactData contact) {
     selectContactById(contact.getId());
     deleteSelectedContact();
+    contactCache = null;
   }
 
   public boolean isThereAContact() {
@@ -92,8 +96,13 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
-    Contacts contacts = new Contacts();
+    if(contactCache != null){
+      return new Contacts(contactCache);
+    }
+    Contacts contactCache = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.xpath(".//td[1]/input")).getAttribute("value"));
@@ -102,9 +111,9 @@ public class ContactHelper extends HelperBase {
       String address = element.findElement(By.xpath(".//td[4]")).getText();
       String phoneMobile = element.findElement(By.xpath(".//td[6]")).getText();;
       String email = element.findElement(By.xpath(".//td[5]")).getText();
-      contacts.add(new ContactData()
+      contactCache.add(new ContactData()
               .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address).withPhoneMobile(phoneMobile).withEmail(email));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 }
