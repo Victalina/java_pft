@@ -19,6 +19,8 @@ public class ContactCreationTests extends TestBase{
     app.goTo().homePageForCreationContact();
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
+    contact = app.contact().contactMergePhones(contact);
+    contact = app.contact().contactMergeEmail(contact);
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
 }

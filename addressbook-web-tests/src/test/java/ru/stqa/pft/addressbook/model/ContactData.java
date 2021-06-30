@@ -9,8 +9,14 @@ public class ContactData {
   private String firstName;
   private String lastName;
   private String address;
+  private String phoneHome;
   private String phoneMobile;
+  private String phoneWork;
+  private String allPhones;
   private String email;
+  private String email2;
+  private String email3;
+  private String allEmails;
   private String group;
 
 
@@ -34,8 +40,32 @@ public class ContactData {
     return phoneMobile;
   }
 
+  public String getPhoneHome() {
+    return phoneHome;
+  }
+
+  public String getPhoneWork() {
+    return phoneWork;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
   public String getEmail() {
     return email;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public String getGroup() {
@@ -67,8 +97,38 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withPhoneHome(String phoneHome) {
+    this.phoneHome = phoneHome;
+    return this;
+  }
+
+  public ContactData withPhoneWork(String phoneWork) {
+    this.phoneWork = phoneWork;
+    return this;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
   public ContactData withEmail(String email) {
     this.email = email;
+    return this;
+  }
+
+  public ContactData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public ContactData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 
@@ -84,8 +144,14 @@ public class ContactData {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", address='" + address + '\'' +
+            ", phoneHome='" + phoneHome + '\'' +
             ", phoneMobile='" + phoneMobile + '\'' +
+            ", phoneWork='" + phoneWork + '\'' +
+            ", allPhones='" + allPhones + '\'' +
             ", email='" + email + '\'' +
+            ", email2='" + email2 + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", allEmails='" + allEmails + '\'' +
             '}';
   }
 
@@ -94,11 +160,11 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(phoneMobile, that.phoneMobile) && Objects.equals(email, that.email);
+    return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(allPhones, that.allPhones) && Objects.equals(allEmails, that.allEmails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstName, lastName, address, phoneMobile, email);
+    return Objects.hash(id, firstName, lastName, address, allPhones, allEmails);
   }
 }
