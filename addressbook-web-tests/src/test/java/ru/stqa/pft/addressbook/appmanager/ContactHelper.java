@@ -7,7 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
 
@@ -140,23 +143,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public ContactData contactMergePhones(ContactData contact){
-    String[] phones = new String[]{replaceNull(contact.getPhoneHome()), replaceNull(contact.getPhoneMobile()),
-            replaceNull(contact.getPhoneWork())};
-    String mergePhones = "";
-    for (String s : phones) {
-      if(!s.equals(""))
-        mergePhones = String.join("\n",cleaned(s));
-    }
+    String mergePhones = Arrays.asList(replaceNull(contact.getPhoneHome()), replaceNull(contact.getPhoneMobile()),
+            replaceNull(contact.getPhoneWork())).stream().filter((s) -> !s.equals(""))
+            .map(ContactHelper::cleaned).collect(Collectors.joining("\n"));
     return contact.withAllPhones(mergePhones).withPhoneHome(null).withPhoneMobile(null).withPhoneWork(null);
   }
-  public ContactData contactMergeEmail(ContactData contact){
-    String[] emails = new String[]{replaceNull(contact.getEmail()), replaceNull(contact.getEmail2()),
-            replaceNull(contact.getEmail3())};
-    String mergeEmails = "";
-    for (String s : emails) {
-      if(!s.equals(""))
-        mergeEmails = String.join("\n",(s));
-    }
+
+  public ContactData contactMergeEmail (ContactData contact){
+    String mergeEmails = Arrays.asList(replaceNull(contact.getEmail()), replaceNull(contact.getEmail2()),
+            replaceNull(contact.getEmail3())).stream().filter((s) -> !s.equals("")).collect(Collectors.joining("\n"));
     return contact.withAllEmails(mergeEmails).withEmail(null).withEmail2(null).withEmail3(null);
   }
 }
